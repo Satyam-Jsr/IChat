@@ -1,4 +1,5 @@
-import type { Config } from "tailwindcss";
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 
 const config = {
 	darkMode: "class",
@@ -18,7 +19,7 @@ const config = {
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
 				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
+				foreground: "hsl(var(--foreground))", 
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
 					foreground: "hsl(var(--primary-foreground))",
@@ -54,6 +55,7 @@ const config = {
 				"gray-secondary": "hsl(var(--gray-secondary))",
 				"gray-tertiary": "hsl(var(--gray-tertiary))",
 				"left-panel": "hsl(var(--left-panel))",
+				"panel--bar": "hsl(var(--panel-bar))",
 				"chat-hover": "hsl(var(--chat-hover))",
 				"green-primary": "hsl(var(--green-primary))",
 				"green-secondary": "hsl(var(--green-secondary))",
@@ -85,6 +87,6 @@ const config = {
 		},
 	},
 	plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+}
 
-export default config;
+module.exports=config

@@ -21,7 +21,11 @@ const ThemeSwitch = () => {
 					<span className='sr-only'>Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='end' className='bg-gray-primary'>
+			<DropdownMenuContent 
+  align='end' 
+  className='bg-gray-primary'
+>
+
 				<DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
