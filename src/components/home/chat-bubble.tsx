@@ -9,10 +9,12 @@ import { DialogTrigger } from "../ui/dialog";
 import ChatAvatarActions from "./chat-avatar-actions";
 import MessageContextMenu from "./message-context-menu";
 
-type ChatBubbleProps ={
-	message: IMessage;
-	me: any;
-	previousMessage?: IMessage;
+import { User, Message } from "@/types";
+
+type ChatBubbleProps = {
+	message: Message;
+	me: User;
+	previousMessage?: Message;
 }
 
 const ChatBubble = ({me,message,previousMessage}:ChatBubbleProps) => {

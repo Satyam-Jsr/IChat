@@ -1,14 +1,14 @@
-import { messages } from "@/dummy-data/db";
-import { IMessage, useConversationStore } from "@/store/chat-store"
+import { useConversationStore } from "@/store/chat-store"
 import { Ban, LogOut } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import toast from "react-hot-toast";
 import React from "react";
+import { Message, User } from "@/types";
 
 type ChatAvatarActionsProps = {
-    message: IMessage;
-    me: any;
+    message: Message;
+    me: User;
 };
 
 

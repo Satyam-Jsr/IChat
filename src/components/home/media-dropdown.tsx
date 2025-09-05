@@ -25,31 +25,43 @@ const MediaDropdown =()=>{
     const me=useQuery(api.users.getMe);
     const {selectedConversation}= useConversationStore();
 
-    const handleSendImage= async () => {
-        try{
-
-            const postUrl= await generateUploadUrl();
-
-            const result= await fetch(postUrl,{
-               method:"POST",
-               headers: {"Content-Type":selectedImage!.type},
-               body: selectedImage
-            })
-
-            const {storageId}= await  result.json();
-            await sendImage({
-                conversation: selectedConversation!._id,
-                imgId: storageId,
-                sender: me!._id
-            })
-            setSelectedImage(null);
-
-        } catch(err)
-        {
-            toast.error("Failed to send image");
+    const handleSendImage = async () => {
+        if (!selectedImage || !selectedConversation || !me) {
+            toast.error("Cannot send image at this time");
+            return;
         }
-        finally
-        {
+
+        setIsLoading(true);
+        try {
+            const postUrl = await generateUploadUrl();
+            
+            const result = await fetch(postUrl, {
+                method: "POST",
+                headers: { "Content-Type": selectedImage.type },
+                body: selectedImage
+            });
+
+            if (!result.ok) {
+                throw new Error(`Upload failed: ${result.status} ${result.statusText}`);
+            }
+
+            const { storageId } = await result.json();
+            if (!storageId) {
+                throw new Error("No storage ID returned from upload");
+            }
+            await sendImage({
+                imgId: storageId,
+                conversation: selectedConversation._id,
+                sender: me._id
+            });
+
+            toast.success("Image sent successfully");
+            setSelectedImage(null);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Failed to send image";
+            console.error("Failed to send image:", error);
+            toast.error(message);
+        } finally {
             setIsLoading(false);
         }
     };
@@ -97,9 +109,9 @@ const MediaDropdown =()=>{
         setSelectedVideo(null);
         toast.success("Video sent successfully");
 
-      } catch(error: any)
-      {
-        toast.error(error.message || "Failed to send video");
+      } catch(error) {
+        const message = error instanceof Error ? error.message : "Failed to send video";
+        toast.error(message);
         console.error("Video upload error:", error);
       }
       finally

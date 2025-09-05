@@ -150,22 +150,30 @@ export const deleteConversation = mutation({
         if (!conversation.participants.includes(user._id))
             throw new ConvexError("You are not a part of this conversation");
 
-        // For individual chats, if one person deletes, remove the other person from participants
-        // For group chats, just remove the current user from participants
-        if (!conversation.isGroup) {
-            // Individual chat - remove the other participant
-            const otherParticipant = conversation.participants.find(id => id !== user._id);
-            if (otherParticipant) {
+        // For groups, only admin can delete the entire conversation
+        if (conversation.isGroup) {
+            if (conversation.admin !== user._id) {
+                // Not admin - just remove the user from participants
+                const updatedParticipants = conversation.participants.filter(id => id !== user._id);
                 await ctx.db.patch(args.conversationId, {
-                    participants: [otherParticipant],
+                    participants: updatedParticipants,
                 });
+                return;
             }
-        } else {
-            // Group chat - remove current user from participants
-            const updatedParticipants = conversation.participants.filter(id => id !== user._id);
-            await ctx.db.patch(args.conversationId, {
-                participants: updatedParticipants,
-            });
+            // Admin - delete the entire conversation and all its messages
         }
+
+        // Delete all messages in the conversation
+        const messages = await ctx.db
+            .query("messages")
+            .withIndex("by_conversation", q => q.eq("conversation", args.conversationId))
+            .collect();
+
+        for (const message of messages) {
+            await ctx.db.delete(message._id);
+        }
+
+        // Delete the conversation itself
+        await ctx.db.delete(args.conversationId);
     },
 });
