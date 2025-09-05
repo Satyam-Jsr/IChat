@@ -6,7 +6,7 @@ import { Mic } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConversationStore } from "@/store/chat-store";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ConversationContextMenu from "./conversation-context-menu";
 
 const Conversation = ({ conversation }: { conversation: any }) => {
@@ -19,6 +19,19 @@ const Conversation = ({ conversation }: { conversation: any }) => {
 	const {setSelectedConversation,selectedConversation}=useConversationStore();
 	const activeBgClass = selectedConversation?._id === conversation._id;
 	const [showContextMenu, setShowContextMenu] = useState(false);
+	const senderUser = lastMessage?.sender;
+
+	// Helper to get sender name or 'You' for Convex data
+	let senderLabel = "";
+	if (lastMessage) {
+		if (lastMessage.sender?._id === me?._id) {
+			senderLabel = "You";
+		} else if (senderUser?.name) {
+			senderLabel = senderUser.name.split(" ")[0];
+		} else if (senderUser?.email) {
+			senderLabel = senderUser.email.split("@")[0];
+		}
+	}
 	return (
 		<>
 			<div 
@@ -51,14 +64,23 @@ const Conversation = ({ conversation }: { conversation: any }) => {
 						{lastMessage?.sender === me?._id ? <MessageSeenSvg /> : ""}
 						{conversation.isGroup && <Users size={16} />}
 						{!lastMessage && "Say Hi!"}
-						{lastMessageType === "text" ? lastMessage?.content.length > 30 ? (
-							<span className='text-xs'>{lastMessage?.content.slice(0, 30)}...</span>
+						{lastMessage && senderLabel && (
+							<span className='font-semibold'>{senderLabel}:</span>
+						)}
+						{lastMessage?.isDeleted ? (
+							<span className='italic text-gray-400'>This message is deleted</span>
 						) : (
-							<span className='text-xs'>{lastMessage?.content}</span>
-						): null}
-						{lastMessageType === "image" && <ImageIcon size={16} />}
-						{lastMessageType === "video" && <VideoIcon size={16} />}
-						{lastMessageType === "audio" && <Mic size={16} />}
+							<>
+								{lastMessageType === "text" ? lastMessage?.content.length > 30 ? (
+									<span className='text-xs'>{lastMessage?.content.slice(0, 30)}...</span>
+								) : (
+									<span className='text-xs'>{lastMessage?.content}</span>
+								): null}
+								{lastMessageType === "image" && <ImageIcon size={16} />}
+								{lastMessageType === "video" && <VideoIcon size={16} />}
+								{lastMessageType === "audio" && <Mic size={16} />}
+							</>
+						)}
 					</p>
 				</div>
 				{showContextMenu && (
