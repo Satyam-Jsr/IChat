@@ -8,7 +8,6 @@ import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useEffect } from "react";
 import { useConversationStore } from "@/store/chat-store";
-import { APIConversation } from "@/types";
 
 
 const LeftPanel = () => {

@@ -7,7 +7,7 @@ import ConvexClientProvider from "@/providers/convex-client-provider";
 import {Toaster} from "react-hot-toast";
 import { ClerkProvider } from '@clerk/nextjs'
 
-export const geistSans = Geist({
+const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });

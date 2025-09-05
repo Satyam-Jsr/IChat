@@ -33,7 +33,7 @@ const ChatAvatarActions = ({me,message}: ChatAvatarActionsProps)=>{
                 ...selectedConversation,
                 participants:selectedConversation.participants.filter((id)=>id !== message.sender._id) 
             })
-        } catch(error)
+        } catch(_)
         {
             toast.error("failed to kick user");
         }

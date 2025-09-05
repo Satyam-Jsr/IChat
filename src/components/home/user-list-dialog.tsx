@@ -82,7 +82,7 @@ const UserListDialog = () => {
             setGroupName("");
             setSelectedImage(null);
 
-          const conversations= isGroup ? groupName : users?.find((user)=> user._id === selectedUsers[0])?.name;
+          const name = isGroup ? groupName : users?.find((user)=> user._id === selectedUsers[0])?.name;
           setSelectedConversation({
             _id: conversationId,
             participants: selectedUsers,
