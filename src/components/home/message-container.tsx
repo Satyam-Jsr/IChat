@@ -9,9 +9,9 @@ const MessageContainer = () => {
 	const me = useQuery(api.users.getMe);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const messages = selectedConversation ? useQuery(api.messages.getMessages, {
-		conversation: selectedConversation._id
-	}) : undefined;
+	const messages = useQuery(api.messages.getMessages, 
+		selectedConversation ? { conversation: selectedConversation._id } : "skip"
+	);
 
 	// Function to instantly scroll to bottom without any animations
 	const scrollToBottom = () => {

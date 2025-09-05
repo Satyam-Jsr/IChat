@@ -60,7 +60,7 @@ const UserListDialog = () => {
 
             const result= await fetch(postUrl,{
                 method: "POST",
-                headers: {"Content-Type": selectedImage?.type!},
+                headers: {"Content-Type": selectedImage?.type || 'image/jpeg'},
                 body: selectedImage,
             });
             const {storageId}= await result.json();
