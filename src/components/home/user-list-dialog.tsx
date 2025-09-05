@@ -36,15 +36,20 @@ const UserListDialog = () => {
 
   const {setSelectedConversation}= useConversationStore();
 
-  const handleCreateConversation= async ()=> {
-    if(selectedUsers.length===0) return;
+  const handleCreateConversation = async () => {
+    if (selectedUsers.length === 0 || isLoading) return;
     setIsLoading(true);
-    try{
+    try {
+        const isGroup = selectedUsers.length > 1;
 
-        const isGroup=selectedUsers.length>1;
+        // For groups, require a group name
+        if (isGroup && !groupName.trim()) {
+            toast.error("Please enter a group name");
+            return;
+        }
 
         let conversationId;
-        if(!isGroup)
+        if (!isGroup)
         {
             if (!me?._id) {
                 throw new Error("User not found");
@@ -115,7 +120,16 @@ const UserListDialog = () => {
         <MessageSquareDiff size={20} />
       </DialogTrigger>
 
-      <DialogContent className="bg-card text-foreground">
+      <DialogContent 
+        className="bg-card text-foreground"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey && !isLoading && selectedUsers.length > 0 && 
+              (selectedUsers.length === 1 || (selectedUsers.length > 1 && groupName.trim()))) {
+            e.preventDefault();
+            handleCreateConversation();
+          }
+        }}
+      >
         <DialogHeader>
             <DialogClose ref={dialogCloseRef}/>
           {/* TODO: <DialogClose /> */}

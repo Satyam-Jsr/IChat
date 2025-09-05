@@ -20,6 +20,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IChat",
   description: "A chat appplication to curse at your friends and cure your boredom",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

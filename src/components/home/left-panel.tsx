@@ -8,6 +8,7 @@ import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useEffect } from "react";
 import { useConversationStore } from "@/store/chat-store";
+import IchatLogo from "../ui/ichat-logo";
 
 
 const LeftPanel = () => {
@@ -28,13 +29,18 @@ const LeftPanel = () => {
 		<div className='w-1/4 border-gray-600 border-r'>
 			<div className='sticky top-0 bg-left-panel z-10'>
 				{/* Header */}
-				<div className='flex justify-between bg-gray-primary p-3 items-center'>
-					<UserButton/>
+				<div className='flex justify-between bg-gray-primary p-3 items-center relative'>
+					<div className="absolute left-3">
+						<UserButton/>
+					</div>
+					
+					<div className="flex-1 flex justify-center">
+						<IchatLogo />
+					</div>
 
 					<div className='flex items-center gap-5'>
 						{isAuthenticated && <UserListDialog/>}
 						<ThemeSwitch />
-
 					</div>
 				</div>
 				<div className='p-3 flex items-center'>
