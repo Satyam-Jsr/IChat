@@ -5,7 +5,6 @@ import DateIndicator from "./date-indicator";
 import Image from "next/image";
 import { useState } from "react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
-import { DialogTrigger } from "../ui/dialog";
 import ChatAvatarActions from "./chat-avatar-actions";
 import MessageContextMenu from "./message-context-menu";
 

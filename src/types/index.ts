@@ -20,7 +20,18 @@ export interface Message {
   sender: User;
 }
 
-export interface Conversation {
+export interface APIMessage {
+  _id: Id<"messages">;
+  content: string;
+  _creationTime: number;
+  messageType: "text" | "image" | "video" | "audio";
+  isDeleted?: boolean;
+  deletedBy?: string;
+  sender: string;
+  conversation: Id<"conversations">;
+}
+
+export interface APIConversation {
   _id: Id<"conversations">;
   image?: string;
   participants: Id<"users">[];
@@ -31,16 +42,11 @@ export interface Conversation {
   admin?: Id<"users">;
   isOnline?: boolean;
   _creationTime: number;
-  lastMessage?: {
-    _id: Id<"messages">;
-    conversation: Id<"conversations">;
-    content: string;
-    messageType: "text" | "image" | "video" | "audio";
-    _creationTime: number;
-    isDeleted?: boolean;
-    deletedBy?: string;
-    sender: Id<"users">;
-  };
+  lastMessage?: APIMessage | null;
+}
+
+export interface Conversation extends Omit<APIConversation, 'lastMessage'> {
+  lastMessage?: APIMessage | null;
 }
 
 export type MediaFile = {

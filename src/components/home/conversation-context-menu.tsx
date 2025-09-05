@@ -20,7 +20,7 @@ interface ConversationContextMenuProps {
 const ConversationContextMenu = ({ conversationId, onClose, position }: ConversationContextMenuProps) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const deleteConversation = useMutation(api.conversations.deleteConversation);
-    const { ref, isComponentVisible } = useComponentVisible<HTMLDivElement>(true);
+    const { ref, isComponentVisible } = useComponentVisible(true);
 
     // Close menu when clicking outside
     useEffect(() => {

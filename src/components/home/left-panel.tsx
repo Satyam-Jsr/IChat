@@ -4,11 +4,12 @@ import ThemeSwitch from "./theme-switch";
 import Conversation from "./conversation";
 import { UserButton } from "@clerk/nextjs";
 import UserListDialog from "./user-list-dialog";
-import { useConvexAuth, useQueries, useQuery } from "convex/react";
+import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useEffect } from "react";
 import { useConversationStore } from "@/store/chat-store";
-import { conversations } from "@/dummy-data/db";
+import { APIConversation } from "@/types";
+
 
 const LeftPanel = () => {
 	const {isAuthenticated, isLoading}= useConvexAuth();

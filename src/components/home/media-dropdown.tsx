@@ -2,7 +2,7 @@ import { DropdownMenu, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/r
 import { ImageIcon, Plus, Video } from "lucide-react";
 import { useEffect, useRef, useState } from "react"
 import { DropdownMenuContent } from "../ui/dropdown-menu";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { DialogClose, DialogHeader } from "../ui/dialog";

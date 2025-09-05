@@ -46,8 +46,11 @@ const UserListDialog = () => {
         let conversationId;
         if(!isGroup)
         {
+            if (!me?._id) {
+                throw new Error("User not found");
+            }
             conversationId=await createConversation({
-                participants: [...selectedUsers,me?._id!],
+                participants: [...selectedUsers, me._id],
                 isGroup:false
             })
         }
@@ -62,10 +65,13 @@ const UserListDialog = () => {
             });
             const {storageId}= await result.json();
 
+            if (!me?._id) {
+                throw new Error("User not found");
+            }
             conversationId= await createConversation({
-                participants: [...selectedUsers,me?._id!],
+                participants: [...selectedUsers, me._id],
                 isGroup: true,
-                admin: me?._id!,
+                admin: me._id,
                 groupName,
                 groupImage: storageId,
             });
@@ -82,7 +88,7 @@ const UserListDialog = () => {
             participants: selectedUsers,
             isGroup,
             image: isGroup ? renderedImage : users?.find((user)=>user._id === selectedUsers[0])?.image,
-            admin: me?._id!,
+            admin: me?._id,
           });
         }
     catch(err)

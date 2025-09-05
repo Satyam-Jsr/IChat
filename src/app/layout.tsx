@@ -5,16 +5,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme_provider";
 import ConvexClientProvider from "@/providers/convex-client-provider";
 import {Toaster} from "react-hot-toast";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 
-const geistSans = Geist({
+export const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });

@@ -1,5 +1,4 @@
 import { clsx, type ClassValue } from "clsx"
-import { timeStamp } from "console";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -46,7 +45,11 @@ export const isSameDay=(timeStamp1: number, timeStamp2: number): boolean=> {
 	);
 };
 
-export const getRelativeTime =(message: any, previousMessage: any)=>{
+interface Message {
+    _creationTime: number;
+}
+
+export const getRelativeTime =(message: Message, previousMessage: Message | undefined)=>{
 	const today=new Date();
 	const yesterday= new Date(today);
 	yesterday.setDate(yesterday.getDate()-1);

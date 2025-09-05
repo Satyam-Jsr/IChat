@@ -16,8 +16,12 @@ export type Conversation={
         _id: Id<"messages">;
         conversation: Id<"conversations">;
         content: string;
-        sender: Id<"users">;
-    };
+        _creationTime: number;
+        messageType: "text" | "image" | "video" | "audio";
+        isDeleted?: boolean;
+        deletedBy?: string;
+        sender: string;
+    } | null;
 };
 type ConversationStore={
     selectedConversation: Conversation | null;

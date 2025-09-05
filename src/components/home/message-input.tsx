@@ -1,8 +1,7 @@
 import { Laugh, Mic, Square, Send } from "lucide-react";
 import { Input } from "../ui/input";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { mutation } from "../../../convex/_generated/server";
 import { api } from "../../../convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { useConversationStore } from "@/store/chat-store";
@@ -39,8 +38,9 @@ const MessageInput = () => {
 			await sendTextMsg({content: msgText.trim(), conversation: selectedConversation._id, sender: me._id})
 			setMsgText('')
 		}
-		catch(err: any){
-			toast.error(err.message);
+		catch(err: Error | unknown){
+			const errorMessage = err instanceof Error ? err.message : "Failed to send message";
+			toast.error(errorMessage);
 			console.error(err);
 		}
 		finally {
@@ -74,7 +74,7 @@ const MessageInput = () => {
 					});
 					const { storageId } = await res.json();
 					await sendAudioMsg({ audioId: storageId, conversation: selectedConversation!._id, sender: me!._id });
-				} catch (error: any) {
+				} catch (error: Error | unknown) {
 					console.error(error);
 					toast.error("Failed to send audio");
 				} finally {
@@ -84,7 +84,7 @@ const MessageInput = () => {
 			mediaRecorder.start();
 			mediaRecorderRef.current = mediaRecorder;
 			setIsRecording(true);
-		} catch (error: any) {
+		} catch (error: Error | unknown) {
 			console.error(error);
 			toast.error("Microphone permission denied");
 		}

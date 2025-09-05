@@ -6,16 +6,12 @@ import { useEffect, useRef } from "react";
 
 const MessageContainer = () => {
 	const {selectedConversation}=useConversationStore();
-	const messages = useQuery(api.messages.getMessages, {
-		conversation: selectedConversation!._id
-	});
-
 	const me = useQuery(api.users.getMe);
-	const lastMessageRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	// Early return if me is not loaded yet
-	if (!me) return null;
+	const messages = selectedConversation ? useQuery(api.messages.getMessages, {
+		conversation: selectedConversation._id
+	}) : undefined;
 
 	// Function to instantly scroll to bottom without any animations
 	const scrollToBottom = () => {
@@ -24,20 +20,15 @@ const MessageContainer = () => {
 		}
 	};
 
-	// Instant scroll when conversation changes
+	// Instant scroll when messages update or conversation changes
 	useEffect(() => {
-		if (selectedConversation) {
-			// Use a small timeout to ensure DOM is updated
+		if (messages?.length || selectedConversation) {
 			requestAnimationFrame(scrollToBottom);
 		}
-	}, [selectedConversation?._id]);
+	}, [messages?.length, selectedConversation]);
 
-	// Instant scroll when messages update
-	useEffect(() => {
-		if (messages?.length) {
-			requestAnimationFrame(scrollToBottom);
-		}
-	}, [messages?.length]);
+	// Early return if me is not loaded yet
+	if (!me) return null;
 
 	return (
 		<div ref={containerRef} className='relative p-3 flex-1 overflow-auto h-full bg-chat-tile-light dark:bg-chat-tile-dark' style={{ scrollBehavior: 'auto' }}>

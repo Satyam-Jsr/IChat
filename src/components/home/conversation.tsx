@@ -1,12 +1,13 @@
 import { formatDate } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { MessageSeenSvg } from "@/lib/svgs";
-import { ImageIcon, Users, VideoIcon, Mic } from "lucide-react";
+import { ImageIcon, VideoIcon, Mic } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 import { useConversationStore } from "@/store/chat-store";
-import { Conversation as ConversationType } from "@/types";
-import { useMemo, useState } from "react";
+import { APIConversation as ConversationType } from "@/types";
+import { useState } from "react";
 import ConversationContextMenu from "./conversation-context-menu";
 
 const Conversation = ({ conversation }: { conversation: ConversationType }) => {
@@ -15,7 +16,7 @@ const Conversation = ({ conversation }: { conversation: ConversationType }) => {
 	const lastMessage = conversation.lastMessage;
 	const lastMessageType = lastMessage?.messageType;
 	const lastMessageSender = useQuery(api.users.getUserById, 
-		lastMessage?.sender ? { userId: lastMessage.sender } : "skip"
+		lastMessage?.sender ? { userId: lastMessage.sender as Id<"users"> } : "skip"
 	);
 	const me= useQuery(api.users.getMe);
 	const [showContextMenu, setShowContextMenu] = useState(false);
