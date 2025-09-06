@@ -1,7 +1,7 @@
-# WhatsApp Clone
+# IChat
 
 ## Project Overview
-A full-stack WhatsApp clone built with Next.js, leveraging modern web technologies to create a real-time messaging application.
+A full-stack chat application built with Next.js, leveraging modern web technologies to create a real-time messaging application.
 
 ## Features
 - Real-time messaging
@@ -33,8 +33,8 @@ A full-stack WhatsApp clone built with Next.js, leveraging modern web technologi
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/whatsapp-clone.git
-cd whatsapp-clone
+git clone https://github.com/yourusername/ichat.git
+cd ichat
 ```
 
 2. Install dependencies
