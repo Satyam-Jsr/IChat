@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WhatsApp Clone
 
-## Getting Started
+## Project Overview
+A full-stack WhatsApp clone built with Next.js, leveraging modern web technologies to create a real-time messaging application.
 
-First, run the development server:
+## Features
+- Real-time messaging
+- User authentication with Clerk
+- Dark/Light theme support
+- Video calling with ZegoCloud
+- Responsive UI with Tailwind CSS
+- State management with Zustand
+- Backend powered by Convex
 
+## Tech Stack
+- **Frontend**: 
+  - React 19
+  - Next.js 15
+  - Tailwind CSS
+- **Authentication**: Clerk
+- **Backend**: Convex
+- **Real-time Communication**: 
+  - ZegoCloud (Video Calls)
+  - WebSocket-based messaging
+- **State Management**: Zustand
+- **UI Components**: Radix UI, Lucide React
+
+## Prerequisites
+- Node.js (v20+)
+- npm or yarn
+
+## Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/whatsapp-clone.git
+cd whatsapp-clone
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables
+Create a `.env.local` file with the following:
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `CLERK_SECRET_KEY`
+- Convex deployment variables
+- ZegoCloud credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server
+```bash
+npm run dev
+```
 
-## Learn More
+## Key Project Structures
+- `src/components/`: Reusable UI components
+- `src/app/`: Next.js app router pages
+- `convex/`: Backend logic and database schema
+- `src/store/`: State management
+- `src/hooks/`: Custom React hooks
+- `src/lib/`: Utility functions
 
-To learn more about Next.js, take a look at the following resources:
+## Main Features
+- User Authentication
+- One-to-One and Group Messaging
+- Video Calling
+- Theme Switching
+- Responsive Design
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
+The project is set up for easy deployment:
+- Vercel (recommended for Next.js)
+- Convex for backend
+- Clerk for authentication
 
-## Deploy on Vercel
+## License
+Distributed under the MIT License.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact
+Reach out for any questions or support.
